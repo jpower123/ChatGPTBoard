@@ -1,6 +1,8 @@
 # ChatGPTBoard
 Python script to use ChatGPT on a raspberry pi 400 whilst emulating a keyboard.
 
+See usage intrustions for more information on what this actually does.
+
 
 # NOTICE
 I am a novice programmer and am just learning the basics of python and the raspberry pi in general. Expect things not to work, and if there is an issue, I will do what I can but it may not work out, and I am sorry. If you are able to contribute to this project, that would be great, however it was mostly a proof of concept and challenge for myself. This project may never be updated, however only time will tell.
