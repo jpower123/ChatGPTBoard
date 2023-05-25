@@ -12,11 +12,12 @@ I am a novice programmer and am just learning the basics of python and the raspb
 ----Installation----
 
 1. install python console and openai as root and normal user.
-pip install console
-pip install openai
-sudo pip install console
-sudo pip install openai
+"pip install console"
+"pip install openai"
+"sudo pip install console"
+"sudo pip install openai"
 
 2. download the python script into the home folder of your pi 400
 3. edit the variables inside the script to your liking, and change the openai key to your key
-4. profit
+4. add "sudo python3 GPTBoard.py" to the end of your .bashrc in the home directory
+5. profit
