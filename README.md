@@ -18,6 +18,6 @@ I am a novice programmer and am just learning the basics of python and the raspb
 "sudo pip install openai"
 
 2. download the python script into the home folder of your pi 400
-3. edit the variables inside the script to your liking, and change the openai key to your key
+3. edit the variables inside the script to your liking, and change the openai key to your key (line 93/94)
 4. add "sudo python3 GPTBoard.py" to the end of your .bashrc in the home directory
 5. profit
