@@ -110,7 +110,9 @@ Once enter is pushed, the LED should turn back on letting you know it is thinkin
 
 If everything worked and the pi400 has internet/you used a working openai key, the LED should turn back off eventually when it has recieved the response from chatGPT.
 
-Here comes the fun part: When the LED is back off, whatever character that you press, will be turned into the next character that chatGPT returned. This means that you can press any letter, and it will change before being sent to the computer. This is more of a fun and cool-looking way to actually type out the response from chatGPT, however if it is not your cup of tea, you can comment out the section of the python script that says #new way to type, and then uncomment the lines above it.
+Here comes the fun part: When the LED is back off, whatever character that you press, will be turned into the next character that chatGPT returned. This means that you can press any letter, and it will change before being sent to the computer. 
+
+(This is more of a fun and cool-looking way to actually type out the response from chatGPT, however if it is not your cup of tea, you can comment out the section of the python script that says #new typing method, and then uncomment the loop above it)
 
 When everything has been typed out, there should be a  short pause and then the pi400 will return to normal keyboard functionality.
 
