@@ -125,7 +125,7 @@ def keyboardEmu():
         print(tempNum)
         caps = NULL_CHAR
         pressed_keys = pygame.key.get_pressed()
-        if pressed_keys[pygame.K_SHIFT]:
+        if pressed_keys[pygame.K_LSHIFT]:
             caps = chr(32)
         typeKey(tempNum)
         write_report(NULL_CHAR*8) # stop pressing
