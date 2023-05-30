@@ -2,6 +2,7 @@
 NULL_CHAR = chr(0)
 
 import time
+from codes import *
 from time import sleep
 import openai
 import console
