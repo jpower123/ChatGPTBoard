@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 NULL_CHAR = chr(0)
 
+import pygame
 import time
 from codes import *
 from time import sleep
@@ -32,16 +33,16 @@ for x in range(5):
     fcntl.ioctl(console_fd, KDSETLED, 0) # turn off numlock LED for status
     sleep(0.1)
 
-def typeKey(keyNumber): # define function to type a key with an input of the key number from the USB HID documentation
+def typeKey(keyNumber, caps): # define function to type a key with an input of the key number from the USB HID documentation
     if keyNumber == 34:
-        write_report(NULL_CHAR*2+chr(42)+NULL_CHAR*5)
+        write_report(caps+NULL_CHAR+chr(42)+NULL_CHAR*5)
         return
     
     if keyNumber > 0:
-        write_report(NULL_CHAR*2+chr(keyNumber)+NULL_CHAR*5) # type the character based on the number/letter
+        write_report(caps+NULL_CHAR+chr(keyNumber)+NULL_CHAR*5) # type the character based on the number/letter
     else:
         try:
-            write_report(NULL_CHAR*2+chr(specialChars[f"{keyNumber}"])+NULL_CHAR*5)
+            write_report(caps+NULL_CHAR+chr(specialChars[f"{keyNumber}"])+NULL_CHAR*5)
         except:
             return
     
@@ -90,7 +91,11 @@ def chatGPT():
         wait_key()
         numberToType = ord(characterList[x]) - 93
         print(numberToType)
-        typeKey(numberToType)
+        if x.isupper():
+            caps = chr(32)
+        else:
+            caps = NULL_CHAR
+        typeKey(numberToType, caps)
         write_report(NULL_CHAR*8)
 
 
@@ -118,6 +123,10 @@ def keyboardEmu():
     else:
         tempNum = ord(typedKey) - 93
         print(tempNum)
+        caps = NULL_CHAR
+        pressed_keys = pygame.key.get_pressed()
+        if pressed_keys[pygame.K_SHIFT]:
+            caps = chr(32)
         typeKey(tempNum)
         write_report(NULL_CHAR*8) # stop pressing
         keyboardEmu()
