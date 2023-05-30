@@ -74,8 +74,6 @@ def chatGPT():
 
     response = completion.choices[0].message.content # store the response from ChatGPT
 
-    response = response.lower() # make the response variable only the string of the message
-
     print(response) # print the response gotten
 
     characterList = ([*response]) # turn the response into individual characters
