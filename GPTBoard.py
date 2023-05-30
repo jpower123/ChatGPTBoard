@@ -21,8 +21,9 @@ def write_report(report): #setup the keyboard emulation
 KDSETLED = 0x4B32
 NUM_LED  = 0x02
 
-
 console_fd = os.open('/dev/console', os.O_NOCTTY)
+
+pygame.init() # initialize pygame
 
 
 
@@ -125,9 +126,9 @@ def keyboardEmu():
         print(tempNum)
         caps = NULL_CHAR
         pressed_keys = pygame.key.get_pressed()
-        if pressed_keys[pygame.K_SHIFT]:
+        if pressed_keys[pygame.K_LSHIFT]:
             caps = chr(32)
-        typeKey(tempNum)
+        typeKey(tempNum, caps)
         write_report(NULL_CHAR*8) # stop pressing
         keyboardEmu()
 
