@@ -1,3 +1,6 @@
+# Format:
+# Keyboard Return: HID code
+
 specialChars = {
   "-61": 44,
   "-49": 54,
