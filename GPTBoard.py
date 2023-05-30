@@ -24,40 +24,12 @@ console_fd = os.open('/dev/console', os.O_NOCTTY)
 
 
 
-
-# blink the numlock LED a few times to show the script is running/pi has started completeley if autostart
-fcntl.ioctl(console_fd, KDSETLED, NUM_LED) # turn on numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, 0) # turn off numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, NUM_LED) # turn on numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, 0) # turn off numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, NUM_LED) # turn on numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, 0) # turn off numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, NUM_LED) # turn on numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, 0) # turn off numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, NUM_LED) # turn on numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, 0) # turn off numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, NUM_LED) # turn on numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, 0) # turn off numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, NUM_LED) # turn on numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, 0) # turn off numlock LED for status
-
-
-
-
-
+for x in range(5):
+    # blink the numlock LED a few times to show the script is running/pi has started completeley if autostart
+    fcntl.ioctl(console_fd, KDSETLED, NUM_LED) # turn on numlock LED for status
+    sleep(0.1)
+    fcntl.ioctl(console_fd, KDSETLED, 0) # turn off numlock LED for status
+    sleep(0.1)
 
 def typeKey(keyNumber): # define function to type a key with an input of the key number from the USB HID documentation
     if keyNumber == 34:
