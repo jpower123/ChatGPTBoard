@@ -2,6 +2,7 @@
 NULL_CHAR = chr(0)
 
 import time
+from codes import *
 from time import sleep
 import openai
 import console
@@ -24,40 +25,12 @@ console_fd = os.open('/dev/console', os.O_NOCTTY)
 
 
 
-
-# blink the numlock LED a few times to show the script is running/pi has started completeley if autostart
-fcntl.ioctl(console_fd, KDSETLED, NUM_LED) # turn on numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, 0) # turn off numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, NUM_LED) # turn on numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, 0) # turn off numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, NUM_LED) # turn on numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, 0) # turn off numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, NUM_LED) # turn on numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, 0) # turn off numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, NUM_LED) # turn on numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, 0) # turn off numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, NUM_LED) # turn on numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, 0) # turn off numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, NUM_LED) # turn on numlock LED for status
-sleep(0.1)
-fcntl.ioctl(console_fd, KDSETLED, 0) # turn off numlock LED for status
-
-
-
-
-
+for x in range(5):
+    # blink the numlock LED a few times to show the script is running/pi has started completeley if autostart
+    fcntl.ioctl(console_fd, KDSETLED, NUM_LED) # turn on numlock LED for status
+    sleep(0.1)
+    fcntl.ioctl(console_fd, KDSETLED, 0) # turn off numlock LED for status
+    sleep(0.1)
 
 def typeKey(keyNumber): # define function to type a key with an input of the key number from the USB HID documentation
     if keyNumber == 34:
@@ -67,15 +40,9 @@ def typeKey(keyNumber): # define function to type a key with an input of the key
     if keyNumber > 0:
         write_report(NULL_CHAR*2+chr(keyNumber)+NULL_CHAR*5) # type the character based on the number/letter
     else:
-        if keyNumber == -61:
-            write_report(NULL_CHAR*2+chr(44)+NULL_CHAR*5) # type space
-        elif keyNumber == -49:
-            write_report(NULL_CHAR*2+chr(54)+NULL_CHAR*5) # type comma
-        elif keyNumber == -47:
-            write_report(NULL_CHAR*2+chr(55)+NULL_CHAR*5) # type period
-        elif keyNumber == -83 or keyNumber == -80:
-            write_report(NULL_CHAR*2+chr(40)+NULL_CHAR*5) # type enter key
-        else:
+        try:
+            write_report(NULL_CHAR*2+chr(specialChars[f"{keyNumber}"])+NULL_CHAR*5)
+        except:
             return
     
 
