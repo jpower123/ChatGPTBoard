@@ -24,8 +24,10 @@ I am a novice programmer and am just learning the basics of python and the raspb
 ```
 pip install console
 pip install openai
+pip install pygame
 sudo pip install console
 sudo pip install openai
+sudo pip install pygame
 ```
 2. install the drivers for the HID interface, and set it to launch at boot: (full guide under references.)
  ```
