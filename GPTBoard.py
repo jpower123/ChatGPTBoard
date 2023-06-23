@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 NULL_CHAR = chr(0)
 
-import pygame
+import threading
 import time
 from codes import *
 from time import sleep
@@ -21,11 +21,8 @@ def write_report(report): #setup the keyboard emulation
 KDSETLED = 0x4B32
 NUM_LED  = 0x02
 
+
 console_fd = os.open('/dev/console', os.O_NOCTTY)
-
-pygame.init() # initialize pygame
-
-
 
 for x in range(5):
     # blink the numlock LED a few times to show the script is running/pi has started completeley if autostart
@@ -44,9 +41,10 @@ def typeKey(keyNumber, caps): # define function to type a key with an input of t
     else:
         try:
             write_report(caps+NULL_CHAR+chr(specialChars[f"{keyNumber}"])+NULL_CHAR*5)
-        except:
+        except Exception as E:
+            print(f"Typping error: {E}")
             return
-    
+   
 
 
 def chatGPT():
@@ -56,10 +54,10 @@ def chatGPT():
     fcntl.ioctl(console_fd, KDSETLED, 0)
     userPrompt = input("Enter the prompt for ChatGPT: ") # get the input from the user for the ChatGPT prompt to be typed
 
-    sleep(0.1) # temporary wait time
+    sleep(0.1) # temporrary wait time
 
     fcntl.ioctl(console_fd, KDSETLED, NUM_LED)
-    openai.api_key = "INSERT YOUR API KEY HERE" # input your openai API key here
+    openai.api_key = "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" # input your openai API key here
     model_engine = "gpt-3.5-turbo" # setting up the model to be used
 
     prompt = [{"role": "user", "content": userPrompt}] # create the prompt to be given from what the user inputted
@@ -77,7 +75,7 @@ def chatGPT():
     response = completion.choices[0].message.content # store the response from ChatGPT
 
     print(response) # print the response gotten
-
+ 
     characterList = ([*response]) # turn the response into individual characters
 
     #for x in characterList: # for each character of ChatGPT's response:
@@ -92,9 +90,13 @@ def chatGPT():
         wait_key()
         numberToType = ord(characterList[x]) - 93
         print(numberToType)
-        if x.isupper():
-            caps = chr(32)
-        else:
+        try:
+            if characterList[x].isupper():
+              caps = chr(32)
+            else:
+              caps = NULL_CHAR
+        except Exception as E:
+            print(f"Caps errpr: {E}")
             caps = NULL_CHAR
         typeKey(numberToType, caps)
         write_report(NULL_CHAR*8)
@@ -116,25 +118,30 @@ def chatGPT():
 
 def keyboardEmu():
     typedKey = wait_key()
-    if typedKey == '0':
-        print("Gpting")
-        sleep(0.1)
-        chatGPT()
-        
-    else:
-        tempNum = ord(typedKey) - 93
-        print(tempNum)
-        caps = NULL_CHAR
-        pressed_keys = pygame.key.get_pressed()
-        if pressed_keys[pygame.K_LSHIFT]:
-            caps = chr(32)
-        typeKey(tempNum, caps)
-        write_report(NULL_CHAR*8) # stop pressing
-        keyboardEmu()
+    try:
+        print(f"You pressed: {typedKey}!")
+        if typedKey == '0':
+            print("Gpting")
+            sleep(0.1)
+            chatGPT()
+
+        else:
+            tempNum = ord(typedKey) - 93
+            print(tempNum)
+            caps = NULL_CHAR
+            try:
+                if typedKey.upper():
+                    caps = chr(32)
+            except:
+                pass
+            typeKey(tempNum, caps)
+            write_report(NULL_CHAR*8) # stop pressing
+            keyboardEmu()
+    except Exception as E:
+        print(f"Error: {E}")
 
 
 keyboardEmu()
-
 
 
 
