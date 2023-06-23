@@ -57,7 +57,7 @@ def chatGPT():
     sleep(0.1) # temporrary wait time
 
     fcntl.ioctl(console_fd, KDSETLED, NUM_LED)
-    openai.api_key = "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" # input your openai API key here
+    openai.api_key = "INSERT KEY HERE" # input your openai API key here
     model_engine = "gpt-3.5-turbo" # setting up the model to be used
 
     prompt = [{"role": "user", "content": userPrompt}] # create the prompt to be given from what the user inputted
